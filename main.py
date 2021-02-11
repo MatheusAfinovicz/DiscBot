@@ -2,9 +2,9 @@ import discord
 
 client = discord.Client()
 
-commands = ['!help -> returns a command list',
-            '!google "word" -> returns the meaning of the word',
-            '!coe -> returns "coé"']
+commands = ['!help -> Escrevo uma lista com meus comandos',
+            '!buscar "algo" -> Busco no Google e escrevo aqui para você!',
+            '!salve -> Te mando um salve!']
 
 
 @client.event
@@ -28,6 +28,7 @@ async def on_message(message):
     if message.content.startswith('!buscar'):
         search = message.content[8:]
         print(search)
+        # parei aqui (integrar 'new search engine')
 
 with open('keys/disc_api_key') as archive:
     for key in archive:
