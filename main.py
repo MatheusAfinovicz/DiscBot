@@ -1,9 +1,10 @@
 import discord
+from search import search
 
 client = discord.Client()
 
 commands = ['!help -> Escrevo uma lista com meus comandos',
-            '!buscar "algo" -> Busco no Google e escrevo aqui para você!',
+            '!wiki "algo" -> Busco algo na wikipedia para você!',
             '!salve -> Te mando um salve!']
 
 
@@ -23,12 +24,16 @@ async def on_message(message):
             await message.channel.send(command)
 
     if message.content.startswith('!salve'):
-        await message.channel.send('Salve')
+        author = str(message.author).split('#')
+        await message.channel.send(f'Salve {author[0]} =)')
 
-    if message.content.startswith('!buscar'):
-        search = message.content[8:]
-        print(search)
-        # parei aqui (integrar 'new search engine')
+    if message.content.startswith('!wiki'):
+        query = message.content[8:]
+        if query == ''*len(query):
+            await message.channel.send('A busca não pode ser vazia.')
+        else:
+            answer = search(query)
+            await message.channel.send(answer + '.')
 
 with open('keys/disc_api_key') as archive:
     for key in archive:
