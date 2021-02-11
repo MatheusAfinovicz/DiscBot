@@ -23,15 +23,15 @@ async def on_message(message):
         for command in commands:
             await message.channel.send(command)
 
-    if message.content.startswith('!coe'):
-        await message.channel.send('Coé')
+    if message.content.startswith('!salve'):
+        await message.channel.send('Salve')
 
     if message.content.startswith('!pessoa'):
         search = message.content[8:]
         print(search)
 
-with open('keys/disc_api_key') as disc_key:
-    for word in disc_key:
-        key = word
+with open('keys/disc_api_key') as archive:
+    for key in archive:
+        disc_key = key
 
-client.run(key)
+client.run(disc_key)
