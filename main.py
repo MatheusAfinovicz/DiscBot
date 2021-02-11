@@ -1,5 +1,4 @@
 import discord
-import json
 
 client = discord.Client()
 
@@ -26,7 +25,7 @@ async def on_message(message):
     if message.content.startswith('!salve'):
         await message.channel.send('Salve')
 
-    if message.content.startswith('!pessoa'):
+    if message.content.startswith('!buscar'):
         search = message.content[8:]
         print(search)
 
