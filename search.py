@@ -19,10 +19,3 @@ def search(query):
 
     except wikipedia.exceptions.WikipediaException:
         return 'Não encontrei nenhum parâmentro para buscar sobre.'
-
-
-if __name__ == '__main__':
-    print(search('abraham lincoln'))
-    print(search('dhuashdsadas'))
-    print(search(''))
-    print(search('   '))
