@@ -31,11 +31,8 @@ async def on_message(message):
 
     if message.content.startswith('!wiki'):
         query = message.content[6:]
-        if query == ''*len(query):
-            await message.channel.send('A busca não pode ser vazia.')
-        else:
-            answer = search(query)
-            await message.channel.send(answer + '.')
+        response = search(query)
+        await message.channel.send(response)
 
     if message.content.startswith('!tempo'):
         query = message.content[7:]
