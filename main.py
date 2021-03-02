@@ -1,8 +1,7 @@
 import discord
-from search import search
-from weather import weather
+from apis.search import search
+from apis.weather import weather
 
-client = discord.Client()
 
 commands = ['!help -> Escrevo uma lista com meus comandos',
             '!wiki "algo" -> Busco algo na wikipedia para você!',
@@ -10,9 +9,13 @@ commands = ['!help -> Escrevo uma lista com meus comandos',
             '!tempo "cidade" -> Te informo o tempo de uma cidade']
 
 
+client = discord.Client()
+
+
 @client.event
 async def on_ready():
     print(f'I logged in as {client.user}')
+    print(f'Connected to: {client.guilds[0]}')
 
 
 @client.event
@@ -38,6 +41,7 @@ async def on_message(message):
         query = message.content[7:]
         response = weather(query)
         await message.channel.send(response)
+
 
 with open('keys/disc_api_key') as archive:
     for key in archive:

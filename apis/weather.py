@@ -7,7 +7,7 @@ def weather(query):
         return 'A cidade não pode ser vazia.'
 
     try:
-        with open('keys/weather_api_key') as archive:
+        with open('../keys/weather_api_key') as archive:
             for token in archive:
                 weather_token = token
 
