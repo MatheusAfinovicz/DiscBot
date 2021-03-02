@@ -1,2 +1,4 @@
 # DiscBot
-A Discord Bot with Google Search and other features
+A Discord Bot with Wikipedia search, Weather checks and other fetures.
+
+
