@@ -15,7 +15,6 @@ client = discord.Client()
 @client.event
 async def on_ready():
     print(f'I logged in as {client.user}')
-    print(f'Connected to: {client.guilds[0]}')
 
 
 @client.event
@@ -39,7 +38,13 @@ async def on_message(message):
 
     if message.content.startswith('!tempo'):
         query = message.content[7:]
-        response = weather(query)
+
+        with open('keys/weather_api_key') as key_archive:
+            for token in key_archive:
+                weather_token = token
+
+        response = weather(query, weather_token)
+
         await message.channel.send(response)
 
 
