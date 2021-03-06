@@ -11,8 +11,8 @@ class SearchTestCase(unittest.TestCase):
     def test_empty_string_returns_empty_search_error(self):
         query = ['', '    ']
         for string in query:
-            with self.subTest(string=string):
-                self.assertEqual(search(''), 'A busca não pode ser vazia.')
+            with self.subTest():
+                self.assertEqual(search(string), 'A busca não pode ser vazia.')
 
     def test_multiple_results_returns_wikipedia_exceptions_disambiguation_error(self):
         query = 'gremio'
@@ -42,21 +42,21 @@ class SearchTestCase(unittest.TestCase):
     def test_ints_returns_Type_Error(self):
         query = [-7, 0, 3]
         for number in query:
-            with self.subTest(number=number):
+            with self.subTest():
                 with self.assertRaises(TypeError):
                     search(number)
 
     def test_floats_returns_Type_Error(self):
         query = [-0.7, 0.21, 1.93]
         for number in query:
-            with self.subTest(number=number):
+            with self.subTest():
                 with self.assertRaises(TypeError):
                     search(number)
 
     def test_tuples_lists_dicts_with_values_returns_wiki_summary(self):
         query = [('testing', 'values'), (-7, 0, 32), [1, 'None'], [-1, 0], {3: True}, {'key': 2}]
         for values in query:
-            with self.subTest(values=values):
+            with self.subTest():
                 self.assertIsInstance(search(values), str)
 
 
