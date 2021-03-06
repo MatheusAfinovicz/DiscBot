@@ -50,7 +50,3 @@ def weather(query: str) -> str:
 
     except KeyError:
         return 'Cidade não encontrada.'
-
-
-if __name__ == '__main__':
-    print(creates_formatted_string({'key': 'value'}))
