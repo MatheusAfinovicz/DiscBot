@@ -3,16 +3,22 @@ from apis.weather import weather, creates_formatted_string
 import requests
 import json
 
-with open('../keys/weather_api_key') as archive:
-    for token in archive:
-        weather_token = token
+try:
+    with open('../keys/weather_api_key') as archive:
+        for token in archive:
+            weather_token = token
+
+except FileNotFoundError:
+    with open('keys/weather_api_key') as archive:
+        for token in archive:
+            weather_token = token
 
 
 class WeatherTestCase(unittest.TestCase):
 
     def test_invalid_api_key_returns_error_401(self):
-        token = 'invalid_token'
-        self.assertEqual(weather('guarapuava', token), 'Algo não está certo, tente novamente mais tarde.')
+        invalid_token = 'invalid_token'
+        self.assertEqual(weather('guarapuava', invalid_token), 'Algo não está certo, tente novamente mais tarde.')
 
     def test_no_param_returns_TypeError(self):
         with self.assertRaises(TypeError):
