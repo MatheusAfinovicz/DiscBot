@@ -47,7 +47,7 @@ class SearchTestCase(unittest.TestCase):
                 with self.assertRaises(TypeError):
                     search(number)
 
-    def test_tuples_lists_dicts_with_values_returns_wiki_summary(self):
+    def test_arrays_with_values_returns_wiki_summary(self):
         query = [('testing', 'values'), (-7, 0, 32), [1, 'None'], [-1, 0], {3: True}, {'key': 2}]
         for values in query:
             with self.subTest():
