@@ -2,11 +2,35 @@ import requests
 import json
 
 
-def weather(query):
-    if query == '' or query == ' ' * len(query):
-        return 'A cidade não pode ser vazia.'
+def creates_formatted_string(response: dict) -> str:
+
+    if response['cod'] == '404':
+        return 'Cidade não encontrada.'
+
+    city = response['name']
+    description = response['weather'][0]['description']
+    temp = round(response['main']['temp'] - 273)
+    feels_like = round(response['main']['feels_like'] - 273)
+    humidity = response['main']['humidity']
+
+    response = f'{city.upper()}:\n' \
+               f'Condição: {description}\n' \
+               f'Temperatura atual: {temp}ºC    Sensação Térmica: {feels_like}ºC\n' \
+               f'Humidade: {humidity}%'
+
+    return response
+
+
+def weather(query: str) -> str:
 
     try:
+
+        if query == '' or query == ' ' * len(query):
+            return 'A cidade não pode ser vazia.'
+
+        if isinstance(query, (int, float)):
+            return 'A cidade não pode ser um número.'
+
         with open('../keys/weather_api_key') as archive:
             for token in archive:
                 weather_token = token
@@ -17,26 +41,16 @@ def weather(query):
         json_response = requests.request('GET', url).text
         response = json.loads(json_response)
 
-        description = response['weather'][0]['description']
-        temp = round(response['main']['temp'] - 273)
-        feels_like = round(response['main']['feels_like'] - 273)
-        humidity = response['main']['humidity']
+        answer = creates_formatted_string(response)
 
-        response = f'{query.upper()}:\n' \
-                   f'Condição: {description}\n' \
-                   f'Temperatura atual: {temp}ºC    Sensação Térmica: {feels_like}ºC\n' \
-                   f'Humidade: {humidity}%'
+        return answer
 
-        return response
+    except TypeError:
+        return 'A cidade não pode ser um número.'
 
-    except:
-        return 'Um erro ocorreu. Verifique a cidade digitada.'
+    except KeyError:
+        return 'Cidade não encontrada.'
 
 
 if __name__ == '__main__':
-    print(weather('guarapuava'))
-    print(weather('são paulo'))
-    print(weather('sao paulo'))
-    print(weather('sla'))
-    print(weather(''))
-    print(weather('   '))
+    print(creates_formatted_string({'key': 'value'}))
